@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend/cryptoridereact
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend/CryptoRideDemoApp
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_demoCryptoRide
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Brudy17jajaMySQL
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: db_demoCryptoRide
+      MYSQL_ROOT_PASSWORD: Brudy17jajaMySQL
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql     # <--- asta e linia care lipsește!
+      - ./db_export.sql:/docker-entrypoint-initdb.d/db_export.sql
+
+volumes:
+  db_data:
