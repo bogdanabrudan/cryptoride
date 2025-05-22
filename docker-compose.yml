@@ -27,7 +27,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - db_data:/var/lib/mysql     # <--- asta e linia care lipsește!
+      - db_data:/var/lib/mysql
       - ./db_export.sql:/docker-entrypoint-initdb.d/db_export.sql
 
 volumes:
